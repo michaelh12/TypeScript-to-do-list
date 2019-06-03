@@ -41,10 +41,11 @@ export class App extends React.Component<{}, IState>{
     public renderTasks(): JSX.Element[] {
         return this.state.tasks.map((task: ITask, index: number) => {
             return (
-                <div key={task.id}>
-                    <span style={{ textDecoration: task.completed ? "line-through" : null }}>{task.value}</span>
+                <div key={task.id} className="tdl-task">
+                    {/* style={{ textDecoration: task.completed ? "line-through" : null } */}
+                    <span className={task.completed ? "is-completed" : ""} >{task.value}</span>
                     <button onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => this.deleteTask(task.id)}>Delete</button>
-                    <button onClick={() => this.toggleDone(index)}>{task.completed ? "undone" : "done"}</button>
+                    <button onClick={() => this.toggleDone(index)}>{task.completed ? "Undo" : "Done"}</button>
                 </div>
             )
         })
@@ -67,7 +68,8 @@ export class App extends React.Component<{}, IState>{
                         onChange={
                             (e) => this.setState({ currentTask: e.target.value })
                         }
-                        value={this.state.currentTask} />
+                        value={this.state.currentTask}
+                        className="tdl-input" />
                     <button type="submit">Add Task</button>
                 </form>
                 <section>{this.renderTasks()}</section>
